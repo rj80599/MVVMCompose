@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvmcompose.model.Tweet
 import com.example.mvvmcompose.repo.Repository
+import com.example.mvvmcompose.retrofit.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -16,7 +17,7 @@ class TweetsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val tweets: StateFlow<List<Tweet>>
+    val tweets: StateFlow<Response<List<Tweet>>>
         get() = repository.tweets
 
     init {

@@ -26,4 +26,4 @@ This project demonstrates a basic implementation of the Model-View-ViewModel (MV
 
 1. **Clone the repository:**
    ```bash
-   git clone <https://github.com/rj80599/MVVMCompose.git>
+   git clone https://github.com/rj80599/MVVMCompose.git

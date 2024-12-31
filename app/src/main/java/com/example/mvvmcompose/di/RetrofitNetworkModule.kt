@@ -1,5 +1,6 @@
-package com.example.mvvmcompose.retrofit
+package com.example.mvvmcompose.di
 
+import com.example.mvvmcompose.retrofit.ApiInterface
 import com.example.mvvmcompose.utils.Constant
 import dagger.Module
 import dagger.Provides

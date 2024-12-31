@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     // coroutine
-    implementation(libs.kotlinx.coroutines.android)
+//    implementation(libs.kotlinx.coroutines.android)
 
     //navigation
     implementation(libs.navigation.compose)

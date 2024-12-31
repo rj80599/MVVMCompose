@@ -1,4 +1,4 @@
-package com.example.mvvmcompose
+package com.example.mvvmcompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,8 +19,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.mvvmcompose.screens.CategoryScreen
-import com.example.mvvmcompose.screens.DetailScreen
 import com.example.mvvmcompose.ui.theme.MVVMComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 

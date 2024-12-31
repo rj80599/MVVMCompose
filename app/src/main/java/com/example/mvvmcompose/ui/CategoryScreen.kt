@@ -1,4 +1,4 @@
-package com.example.mvvmcompose.screens
+package com.example.mvvmcompose.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

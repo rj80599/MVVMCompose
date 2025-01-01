@@ -1,3 +1,9 @@
+import java.io.FileInputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Properties
+import java.util.TimeZone
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +11,11 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt)
 }
+
+val path = rootProject.file("gradle.properties")
+val keyProperties = Properties()
+keyProperties.load(FileInputStream(path))
+
 
 android {
     namespace = "com.example.mvvmcompose"
@@ -17,17 +28,61 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        setProperty("archivesBaseName", "MV-$versionName.$versionCode-" + buildTime())
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        getByName("debug"){
+            storeFile = file(keyProperties["storeFile"] as String)
+            keyPassword = keyProperties["keyPassword"] as String
+            storePassword = keyProperties["storePassword"] as String
+            keyAlias = keyProperties["keyAlias"] as String
+        }
+        create("release"){
+            storeFile = file(keyProperties["storeFile"] as String)
+            keyPassword = keyProperties["keyPassword"] as String
+            storePassword = keyProperties["storePassword"] as String
+            keyAlias = keyProperties["keyAlias"] as String
+
+        }
+        create("staging"){
+            storeFile = file(keyProperties["storeFile"] as String)
+            keyPassword = keyProperties["keyPassword"] as String
+            storePassword = keyProperties["storePassword"] as String
+            keyAlias = keyProperties["keyAlias"] as String
+        }
     }
 
     buildTypes {
         release {
+            signingConfig = signingConfigs["release"]
+            buildConfigField("String","base_url","\"https://api.jsonbin.io/v3/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+        debug {
+            signingConfig = signingConfigs["debug"]
+            buildConfigField("String","base_url","\"https://api.jsonbin.io/v3/\"")
+            versionNameSuffix = "-debug"
+//            setProperty("archivesBaseName", "MV$versionNameSuffix-" + buildTime())
+        }
+        create("staging") {
+            signingConfig = signingConfigs["staging"]
+            buildConfigField("String","base_url","\"https://api.jsonbin.io/v3/\"")
+            versionNameSuffix = "-staging"
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -36,8 +91,11 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -82,4 +140,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+fun buildTime(): String{
+    val df = SimpleDateFormat("dd_MMM_yyyy_HHmm")
+    df.timeZone = TimeZone.getTimeZone("Asia/Kolkata")
+    return df.format(Date())
 }

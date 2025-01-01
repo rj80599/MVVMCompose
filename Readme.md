@@ -1,6 +1,4 @@
-# MVVM Project
-
-This project demonstrates a basic implementation of the Model-View-ViewModel (MVVM) architectural pattern using Jetpack Compose.
+# Jetpack Compose MVVM Example
 
 **Key Features:**
 

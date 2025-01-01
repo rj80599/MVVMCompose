@@ -32,6 +32,19 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions += "version"
+    productFlavors {
+        create("free") {
+            dimension = "version"
+            versionNameSuffix = "-free"
+        }
+
+        create ("paid") {
+            dimension = "version"
+        }
+
+    }
+
     signingConfigs {
         getByName("debug"){
             storeFile = file(keyProperties["storeFile"] as String)
